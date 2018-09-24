@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HW1_DiceGame</string>
+    <string name="play">Play</string>
+    <string name="about">About</string>
+    <string name="stats">Stats</string>
+    <string name="options">Options</string>
+    <string name="help">Help</string>
+</resources>
