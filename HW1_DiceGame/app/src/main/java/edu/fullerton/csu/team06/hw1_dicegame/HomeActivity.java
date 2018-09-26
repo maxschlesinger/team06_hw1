@@ -27,8 +27,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.playButton: {
-                Intent intent = new Intent(this, PlayActivity.class);
-                startActivity(intent);
+                
                 break;
             }
             case R.id.helpButton: {
