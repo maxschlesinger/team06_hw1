@@ -5,4 +5,17 @@
     <string name="stats">Stats</string>
     <string name="options">Options</string>
     <string name="help">Help</string>
+    <string name="player_d1">-</string>
+    <string name="player_d2">-</string>
+    <string name="cpu_d1">-</string>
+    <string name="cpu_d2">-</string>
+    <string-array name= "dice_values">
+        <item>-</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
 </resources>
