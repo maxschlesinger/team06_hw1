@@ -16,15 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".Gameplay_UI"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".StartScreen">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity" />
+                android:value=".StartScreen" />
         </activity>
+=======
         <activity android:name=".HelpActivity"></activity>
-
+>>>>>>> feature/help_activity
     </application>
 
 </manifest>
