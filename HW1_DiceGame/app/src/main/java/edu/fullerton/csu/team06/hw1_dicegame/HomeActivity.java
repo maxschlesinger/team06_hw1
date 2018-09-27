@@ -27,11 +27,13 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.playButton: {
-                
+                Intent intent = new Intent(this, Gameplay_UI.class);
+                startActivity(intent);
                 break;
             }
             case R.id.helpButton: {
-
+                Intent intent = new Intent(this, HelpActivity.class);
+                startActivity(intent);
                 break;
             }
             case R.id.aboutButton: {

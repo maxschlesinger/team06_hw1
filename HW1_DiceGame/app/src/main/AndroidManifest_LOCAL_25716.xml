@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity">
+        <activity android:name=".StartScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,14 +17,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".Gameplay_UI"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".StartScreen">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity" />
+                android:value=".StartScreen" />
         </activity>
-        <activity android:name=".HelpActivity"></activity>
-
     </application>
 
 </manifest>
