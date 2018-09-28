@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HelpActivity"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.fullerton.csu.team06.hw1_dicegame.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>
