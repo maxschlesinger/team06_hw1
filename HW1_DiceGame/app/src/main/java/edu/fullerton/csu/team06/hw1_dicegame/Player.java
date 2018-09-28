@@ -65,15 +65,15 @@ public class Player {
         return isAI;
     }
 
-    public void setIsAI(Boolean AI) {
-        isAI = AI;
+    public void setIsAI(Boolean isAI) {
+        this.isAI = isAI;
     }
 
     public Boolean getIsTurnComplete() {
         return isTurnComplete;
     }
 
-    public void setIsTurnComplete(Boolean turnComplete) {
-        isTurnComplete = turnComplete;
+    public void setIsTurnComplete(Boolean isTurnComplete) {
+        this.isTurnComplete = isTurnComplete;
     }
 }
