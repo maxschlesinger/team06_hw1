@@ -3,5 +3,18 @@
     <string name="play">Play</string>
     <string name="about">About</string>
     <string name="help">Help</string>
+    <string name="player_d1">-</string>
+    <string name="player_d2">-</string>
+    <string name="cpu_d1">-</string>
+    <string name="cpu_d2">-</string>
+    <string-array name= "dice_values">
+        <item>-</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
     <string name="title">American Roulette</string>
 </resources>
