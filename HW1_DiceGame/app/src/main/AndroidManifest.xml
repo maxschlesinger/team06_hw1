@@ -16,15 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameplayActivity"
-            android:parentActivityName=".HomeActivity">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
+        <activity android:name=".GameplayActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity" />
+                android:value="edu.fullerton.csu.team06.hw1_dicegame.HomeActivity" />
         </activity>
-        <activity android:name=".HelpActivity"></activity>
-
+        <activity android:name=".HelpActivity"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.fullerton.csu.team06.hw1_dicegame.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

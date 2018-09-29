@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">HW1_DiceGame</string>
-    <string name="title">American Roulette</string>
     <string name="play">Play</string>
     <string name="about">About</string>
     <string name="help">Help</string>
@@ -17,4 +16,5 @@
         <item>5</item>
         <item>6</item>
     </string-array>
+    <string name="title">American Roulette</string>
 </resources>

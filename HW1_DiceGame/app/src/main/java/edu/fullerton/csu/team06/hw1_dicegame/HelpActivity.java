@@ -1,7 +1,7 @@
 package edu.fullerton.csu.team06.hw1_dicegame;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class HelpActivity extends AppCompatActivity {
 
