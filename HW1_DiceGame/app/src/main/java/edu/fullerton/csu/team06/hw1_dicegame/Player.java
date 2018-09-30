@@ -1,5 +1,7 @@
 package edu.fullerton.csu.team06.hw1_dicegame;
 
+import java.util.Random;
+
 public class Player {
     /**    variables    */
     protected int roll1;
@@ -26,6 +28,7 @@ public class Player {
         this.isAI = isAI;
         this.isTurnComplete = isTurnComplete;
     }
+
     /**    getter/setter methods    */
     public int getRoll1() {
         return roll1;
@@ -72,6 +75,34 @@ public class Player {
 
     public void setTurnComplete(Boolean turnComplete) {
         isTurnComplete = turnComplete;
+    }
+
+
+    /** public methods */
+
+    /** Roll all dice the player is allowed to roll. Set corresponding roll values.
+     * For AI that will be 1 and 2, for Human it will be the #2 roll.
+     * This also assumes that the player is going to choose the first dice value
+     * prior to being able to roll the second dice. */
+    public void rollDice(){
+        // if player has already rolled then don't allow another roll
+        // OR if this is a human player, don't roll if the first dice roll is not set/chosen
+        if(this.isTurnComplete ||
+                (!this.isAI && this.roll1 <= 0)){
+            return;
+        }
+
+        // create random generator
+        Random random = new Random();
+
+        // if AI player, set roll 1
+        if(this.isAI)
+            this.roll1 = random.nextInt(6) + 1;
+
+        this.roll2 = random.nextInt(6) + 1;
+
+        // after rolling, the players turn is complete
+        this.isTurnComplete = true;
     }
 }
 
