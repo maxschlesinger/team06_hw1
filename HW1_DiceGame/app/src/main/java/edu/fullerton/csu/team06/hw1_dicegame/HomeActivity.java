@@ -38,6 +38,10 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener {
             }
             case R.id.aboutButton: {
 
+                break;
+            }
+            default: {
+                break;
             }
         }
     }
