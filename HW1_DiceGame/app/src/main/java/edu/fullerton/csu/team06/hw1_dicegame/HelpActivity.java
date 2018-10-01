@@ -16,7 +16,7 @@ public class HelpActivity extends AppCompatActivity implements View.OnClickListe
             "\u0009\u0009\u0009You and a CPU opponent\n" +
             "\u0009\u0009\u2022 To win, have the highest score between players.\n" +
             "\u0009\u0009\u2022 How score is calculated:\n" +
-            "\u0009\u0009\u0009\u0009a. 2022 Take the total of 2 rolled dice\n" +
+            "\u0009\u0009\u0009\u0009a. Take the total of 2 rolled dice\n" +
             "\u0009\u0009\u0009\u0009b. Divide that value by 6\n" +
             "\u0009\u0009\u0009\u0009c. The remainder will be the player's score.\n";
     String HOW_TO_PLAY_TEXT = "How to play\n\n" +
