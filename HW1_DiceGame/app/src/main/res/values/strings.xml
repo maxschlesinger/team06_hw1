@@ -18,11 +18,4 @@
         <item>6</item>
     </string-array>
     <string name="title">American Roulette</string>
-    <string name="instructions">How to win
-        \t\u2022 The game consists of 2 players. You and a CPU opponent\n
-        \t\u2022 To win, have the highest score between players.\n
-        \t\u2022 How the score is calculated:\n
-        \t\t\u2022 Take the total of 2 rolled dice\n
-        \t\t\u2022 Divide that value by 6\n
-        \t\t\u2022 The remainder will be the player's score</string>
 </resources>

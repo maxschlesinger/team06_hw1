@@ -78,9 +78,9 @@ public class Player implements Serializable{
         Random random = new Random();
 
         // if AI player, set roll 1
-        if(this.isAI)
+        if(this.isAI) {
             this.dice1 = random.nextInt(6) + 1;
-
+        }
         this.dice2 = random.nextInt(6) + 1;
 
         // after rolling, the players turn is complete
