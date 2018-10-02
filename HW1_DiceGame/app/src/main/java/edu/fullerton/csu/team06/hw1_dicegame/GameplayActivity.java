@@ -176,7 +176,8 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              *      to do:  - disable both cpu buttons
              *              - set text of buttons to that of the player dice values
              *              - set cpu score to cpu score
-             *              - enable player spinner and player button
+             *              - enable player spinner
+             *              - disable player button
              *              - set text of player ui components to default '-'
              *              - set player score to default '-'
              */
@@ -190,7 +191,8 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              *      to do:  - disable both cpu buttons
              *              - set text of buttons to that of the player dice values
              *              - set cpu score to cpu score
-             *              - enable player spinner and player button
+             *              - enable player spinner
+             *              - disable player button
              *              - set text of spinner to that of player dice 1 value
              *              - set text of player dice 2 button to default '-'
              *              - set player score to default '-'
