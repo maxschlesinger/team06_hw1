@@ -8,12 +8,16 @@ package edu.fullerton.csu.team06.hw1_dicegame;
  * - difficulty
  *
  * Also, to start, only checking if the turn is complete to determine if a game is considered over.
- * Later this may depend on rounds instead. */
+ * Later this may depend on rounds instead.
+ *
+ * Also to stay in scope, creating the two players in the game constructor. This could be done
+ * quite a few ways if we expand this and that will take some discussion. */
 public class Game {
 
-    private Player cpuPlayer;
-    private Player humanPlayer;
-    private boolean isGameOver;
+    protected Player cpuPlayer;
+    protected Player humanPlayer;
+    protected boolean isGameOver;
+
 
     public Game(){
         this.cpuPlayer = new Player(true);
@@ -38,11 +42,11 @@ public class Game {
      * @return returns the winning player, if the players tied, it will return null.
      */
     public Player getWinner(){
-
         // make sure the game is over
         if(!getIsGameOver())
             throw new UnsupportedOperationException("Developer, make sure the game is complete prior to trying to retrieve a winner.");
 
+        // just making it easier to read by grabbing these and storing them in a variable
         int cpuScore = this.cpuPlayer.getScore();
         int humanScore = this.humanPlayer.getScore();
 
