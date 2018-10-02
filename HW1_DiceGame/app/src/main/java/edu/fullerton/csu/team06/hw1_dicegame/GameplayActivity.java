@@ -1,5 +1,6 @@
 package edu.fullerton.csu.team06.hw1_dicegame;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +15,6 @@ import android.widget.Toast;
 import java.util.Random;
 
 public class GameplayActivity extends AppCompatActivity implements OnClickListener {
-    Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
 
     /*
@@ -25,6 +25,14 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
     public int plr1 = -1;
     public int plr2 = -1;
 
+    Button CPU_D1_UI;
+    Button CPU_D2_UI;
+    TextView CPU_SCORE_UI;
+    Spinner PLAYER_D1_UI;
+    Button PLAYER_D2_UI;
+    TextView PLAYER_SCORE_UI;
+    Spinner PLAYER_D1_SPINNER;
+
     // End simulated player object properties
 
     @Override
@@ -33,19 +41,23 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
         setContentView(R.layout.activity_gameplay);
 
         // Get the Intent that started this activity
-        spinner = findViewById(R.id.PLYR_D1);
+        Intent prevIntent = this.getIntent();
+        Game game = (Game) prevIntent.getSerializableExtra("gameObject");
+
+        // Get the Spinner object
+        PLAYER_D1_SPINNER = findViewById(R.id.PLYR_D1);
         adapter = ArrayAdapter.createFromResource(this,R.array.dice_values,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spinner.setAdapter(adapter);
+        PLAYER_D1_SPINNER.setAdapter(adapter);
 
         // setup the cpu button callbacks for rolls
-        Button cpu_d1 = findViewById(R.id.CPU_D1);
-        cpu_d1.setOnClickListener(this);
-        Button cpu_d2 = findViewById(R.id.CPU_D2);
-        cpu_d2.setOnClickListener(this);
+        Button CPU_D1_UI = findViewById(R.id.CPU_D1);
+        CPU_D1_UI.setOnClickListener(this);
+        CPU_D2_UI = findViewById(R.id.CPU_D2);
+        CPU_D2_UI.setOnClickListener(this);
 
         // setup the player spinner dice for choosing value
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        PLAYER_D1_SPINNER.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if  (position > 0) {
@@ -106,8 +118,8 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
 
                 // simulating player choosing first dice until construction complete for player object controls
                     // retrieve dice value
-                    spinner = findViewById(R.id.PLYR_D1);
-                    String uiValue_Str =  spinner.getSelectedItem().toString();
+                    PLAYER_D1_SPINNER = findViewById(R.id.PLYR_D1);
+                    String uiValue_Str =  PLAYER_D1_SPINNER.getSelectedItem().toString();
                     try {
                         this.plr1 = Integer.parseInt(uiValue_Str);
                     } catch (NumberFormatException e) {
@@ -147,14 +159,6 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
         int player_score_value = (player_d1_value + player_d2_value) % 6;
 
 // END simulated value population
-
-        // retrieve ui components
-        Button cpu_d1_ui = findViewById(R.id.CPU_D1);
-        Button cpu_d2_ui = findViewById(R.id.CPU_D2);
-        TextView cpu_score_ui = findViewById(R.id.CPU_Score_value);
-        Spinner player_d1_ui = findViewById(R.id.PLYR_D1);
-        Button player_d2_ui = findViewById(R.id.PLYR_D2);
-        TextView player_score_ui = findViewById(R.id.Player_Score_value);
 
         /*
          * State 0 - New game
@@ -233,47 +237,47 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
         // update the ui components according to state
         // cpu ui components SET A
         if (ui_state < 1) {
-            cpu_d1_ui.setEnabled(true);
-            cpu_d1_ui.setText("-");
-            cpu_d2_ui.setEnabled(true);
-            cpu_d2_ui.setText("-");
-            cpu_score_ui.setText("-");
+            CPU_D1_UI.setEnabled(true);
+            CPU_D1_UI.setText("-");
+            CPU_D2_UI.setEnabled(true);
+            CPU_D2_UI.setText("-");
+            CPU_SCORE_UI.setText("-");
         } else {
-            cpu_d1_ui.setEnabled(false);
-            cpu_d1_ui.setText(Integer.toString(cpu_d1_value));
-            cpu_d2_ui.setEnabled(false);
-            cpu_d2_ui.setText(Integer.toString(cpu_d2_value));
-            cpu_score_ui.setText(Integer.toString(cpu_score_value));
+            CPU_D1_UI.setEnabled(false);
+            CPU_D1_UI.setText(Integer.toString(cpu_d1_value));
+            CPU_D2_UI.setEnabled(false);
+            CPU_D2_UI.setText(Integer.toString(cpu_d2_value));
+            CPU_SCORE_UI.setText(Integer.toString(cpu_score_value));
         }
 
         // player spinner/button enabled properties SET B
         if (ui_state < 1 || ui_state > 2) {
-            player_d1_ui.setEnabled(false);
+            PLAYER_D1_UI.setEnabled(false);
         } else {
-            player_d1_ui.setEnabled(true);
+            PLAYER_D1_UI.setEnabled(true);
         }
 
         // player spinner/button enabled properties SET C
         if (ui_state < 2 || ui_state > 2) {
-            player_d2_ui.setEnabled(false);
+            PLAYER_D2_UI.setEnabled(false);
         } else {
-            player_d2_ui.setEnabled(true);
+            PLAYER_D2_UI.setEnabled(true);
         }
 
         // player d1 button text value SET D
         if (ui_state < 2) {
-            player_d1_ui.setSelection(0); // refers to "-"
+            PLAYER_D1_UI.setSelection(0); // refers to "-"
         } else {
-            player_d1_ui.setSelection(player_d1_value); // add offset of default option
+            PLAYER_D1_UI.setSelection(player_d1_value); // add offset of default option
         }
 
         // cpu ui components SET E
         if (ui_state < 3) {
-            player_d2_ui.setText("-");
-            player_score_ui.setText("-");
+            PLAYER_D2_UI.setText("-");
+            PLAYER_SCORE_UI.setText("-");
         } else {
-            player_d2_ui.setText(Integer.toString(player_d2_value));
-            player_score_ui.setText(Integer.toString(player_score_value));
+            PLAYER_D2_UI.setText(Integer.toString(player_d2_value));
+            PLAYER_SCORE_UI.setText(Integer.toString(player_score_value));
         }
         // Temporary toast for acknowledgment - Remove once sequence is finished
         Toast.makeText(getBaseContext(),toastMsg,Toast.LENGTH_LONG).show();

@@ -1,8 +1,9 @@
 package edu.fullerton.csu.team06.hw1_dicegame;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Player {
+public class Player implements Serializable{
     /**    variables    */
     protected int dice1;
     protected int dice2;

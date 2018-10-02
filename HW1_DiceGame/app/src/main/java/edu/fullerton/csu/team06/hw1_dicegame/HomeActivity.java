@@ -28,6 +28,8 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener {
         switch (v.getId()) {
             case R.id.playButton: {
                 Intent intent = new Intent(this, GameplayActivity.class);
+                Game newGame = new Game();
+                intent.putExtra("gameObject", newGame);
                 startActivity(intent);
                 break;
             }
