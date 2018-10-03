@@ -1,5 +1,6 @@
 package edu.fullerton.csu.team06.hw1_dicegame;
 
+import java.io.Serializable;
 
 /** For now, hard coding the 2 players in the game so we stay in scope.
  * Later on we can consider utilizing a settings class that may hold items like:
@@ -12,7 +13,7 @@ package edu.fullerton.csu.team06.hw1_dicegame;
  *
  * Also to stay in scope, creating the two players in the game constructor. This could be done
  * quite a few ways if we expand this and that will take some discussion. */
-public class Game {
+public class Game implements Serializable{
 
     protected Player cpuPlayer;
     protected Player humanPlayer;

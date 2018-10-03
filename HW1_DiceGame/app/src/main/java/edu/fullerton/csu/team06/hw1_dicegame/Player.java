@@ -1,8 +1,9 @@
 package edu.fullerton.csu.team06.hw1_dicegame;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Player {
+public class Player implements Serializable{
     /**    variables    */
     protected int dice1;
     protected int dice2;
@@ -77,9 +78,9 @@ public class Player {
         Random random = new Random();
 
         // if AI player, set roll 1
-        if(this.isAI)
+        if(this.isAI) {
             this.dice1 = random.nextInt(6) + 1;
-
+        }
         this.dice2 = random.nextInt(6) + 1;
 
         // after rolling, the players turn is complete

@@ -1,5 +1,7 @@
 package edu.fullerton.csu.team06.hw1_dicegame;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,21 +11,22 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Random;
 
 public class GameplayActivity extends AppCompatActivity implements OnClickListener {
-    Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
 
-    /*
-    Simulating player objects with just integers to show functionality of update
-     */
-    public int cpu1 = -1;
-    public int cpu2 = -1;
-    public int plr1 = -1;
-    public int plr2 = -1;
+    Game GAME;
+
+    Button CPU_D1_UI;
+    Button CPU_D2_UI;
+    TextView CPU_SCORE_UI;
+    Spinner PLAYER_D1_UI;
+    Button PLAYER_D2_UI;
+    TextView PLAYER_SCORE_UI;
+    TextView WINNER_UI;
+    TextView PLAYER_SCORE_LABEL;
+    TextView CPU_SCORE_LABEL;
+    Button PLAY_AGAIN_BUTTON;
 
     // End simulated player object properties
 
@@ -33,25 +36,46 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
         setContentView(R.layout.activity_gameplay);
 
         // Get the Intent that started this activity
-        spinner = findViewById(R.id.PLYR_D1);
+        Intent prevIntent = this.getIntent();
+        GAME = (Game) prevIntent.getSerializableExtra("gameObject");
+
+        // Get the Spinner object
+        PLAYER_D1_UI = findViewById(R.id.PLYR_D1);
         adapter = ArrayAdapter.createFromResource(this,R.array.dice_values,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spinner.setAdapter(adapter);
+        PLAYER_D1_UI.setAdapter(adapter);
 
         // setup the cpu button callbacks for rolls
-        Button cpu_d1 = findViewById(R.id.CPU_D1);
-        cpu_d1.setOnClickListener(this);
-        Button cpu_d2 = findViewById(R.id.CPU_D2);
-        cpu_d2.setOnClickListener(this);
+        CPU_D1_UI = findViewById(R.id.CPU_D1);
+        CPU_D1_UI.setOnClickListener(this);
+        CPU_D2_UI = findViewById(R.id.CPU_D2);
+        CPU_D2_UI.setOnClickListener(this);
+
+        // setup the player roll 2 button callbacks for rolls
+        PLAYER_D2_UI = findViewById(R.id.PLYR_D2);
+        PLAYER_D2_UI.setOnClickListener(this);
+
+        // get the TextViews for score
+        CPU_SCORE_LABEL = findViewById(R.id.CPU_Score_lbl);
+        PLAYER_SCORE_LABEL = findViewById(R.id.player_score_label);
+        CPU_SCORE_LABEL.setText(GAME.getCpuPlayer().getName() + " Score: ");
+        PLAYER_SCORE_LABEL.setText(GAME.getHumanPlayer().getName() + " Score: ");
+        CPU_SCORE_UI = findViewById(R.id.CPU_Score_value);
+        PLAYER_SCORE_UI = findViewById(R.id.Player_Score_value);
+
+        // get Play Again Button
+        PLAY_AGAIN_BUTTON = findViewById(R.id.play_again_button);
+        PLAY_AGAIN_BUTTON.setOnClickListener(this);
+        PLAY_AGAIN_BUTTON.setVisibility(View.INVISIBLE);
+
+        // get winner TextViews
+        WINNER_UI = findViewById(R.id.winner_textview);
 
         // setup the player spinner dice for choosing value
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        PLAYER_D1_UI.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if  (position > 0) {
-                    Toast.makeText(getBaseContext(), parent.getItemIdAtPosition(position) + " selected", Toast.LENGTH_SHORT).show();
-                    onClick(parent);
-                }
+                onClick(parent);
             }
 
             @Override
@@ -60,16 +84,6 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
             }
         });
 
-
-        // setup the player button callback for roll
-        Button player_d1 = findViewById(R.id.PLYR_D2);
-        player_d1.setOnClickListener(this);
-
-        /*
-        * After creation is done, update function should be called  to ensure proper ui components
-         * are enabled/disabled and proper values are restored, especially if returning to previous
-         * game.*/
-
         // perform update to ui components for this activity
         updateUI();
 
@@ -77,57 +91,36 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
 
     @Override
     public void onClick(View v) {
-        // For simulating player's dice roll only
-        Random r = new Random();
-        //
-
         switch (v.getId()) {
             case R.id.CPU_D1:
             case R.id.CPU_D2:
                 /** Called when the user taps either of the CPU dice */
-
-                /*
-                * CPU roll sequence will go here
-                */
-
-                // simulating cpu dice roll until construction complete for player object controls
-                    // assign random values to the cpu player
-                    this.cpu1 = r.nextInt(6)+1;
-                    this.cpu2 = r.nextInt(6)+1;
-                // END simulated code
+                GAME.getCpuPlayer().rollDice();
                 break;
-
             case R.id.PLYR_D1:
                 /** Called when the player selects a value for the first player dice */
-
-                /*
-                 Player choose sequence will go here
-                  */
-
-                // simulating player choosing first dice until construction complete for player object controls
-                    // retrieve dice value
-                    spinner = findViewById(R.id.PLYR_D1);
-                    String uiValue_Str =  spinner.getSelectedItem().toString();
-                    try {
-                        this.plr1 = Integer.parseInt(uiValue_Str);
-                    } catch (NumberFormatException e) {
-                        // handle the scenario that user selects "-"
-                        // set value to -1
-                        this.plr1 = -1;
-                    }
-                // END simulated code
+                PLAYER_D1_UI = findViewById(R.id.PLYR_D1);
+                String uiValue_Str =  PLAYER_D1_UI.getSelectedItem().toString();
+                try {
+                    GAME.getHumanPlayer().setDice1(Integer.parseInt(uiValue_Str));
+                } catch (NumberFormatException e) {
+                    // handle the scenario that user selects "-"
+                    // set value to -1
+                    GAME.getHumanPlayer().setDice1(-1);
+                }
                 break;
             case R.id.PLYR_D2:
                 /** Called when the player taps the second player dice */
-
-                /*
-                 Player roll sequence will go here
-                  */
-
-                // simulating player choosing first dice until construction complete for player object controls
-                    // assign random values to the cpu player
-                    this.plr2 = r.nextInt(6)+1;
-                // END simulated code
+                GAME.getHumanPlayer().rollDice();
+                break;
+            case R.id.play_again_button:
+                Intent returnIntent = new Intent();
+                // 1 means play again
+                returnIntent.putExtra("result", 1);
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+                break;
+            default:
                 break;
         }
         // perform update to ui components for this activity
@@ -135,27 +128,6 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
     }
 
     public void updateUI() {
-        // retrieve cpu player object
-
-        // use activity's simulated player object dice values
-        int cpu_d1_value = this.cpu1;
-        int cpu_d2_value = this.cpu2;
-        int player_d1_value = this.plr1;
-        int player_d2_value = this.plr2;
-// determine score from simulated values (don't worry about dice being -1)
-        int cpu_score_value = (cpu_d1_value + cpu_d2_value) % 6;
-        int player_score_value = (player_d1_value + player_d2_value) % 6;
-
-// END simulated value population
-
-        // retrieve ui components
-        Button cpu_d1_ui = findViewById(R.id.CPU_D1);
-        Button cpu_d2_ui = findViewById(R.id.CPU_D2);
-        TextView cpu_score_ui = findViewById(R.id.CPU_Score_value);
-        Spinner player_d1_ui = findViewById(R.id.PLYR_D1);
-        Button player_d2_ui = findViewById(R.id.PLYR_D2);
-        TextView player_score_ui = findViewById(R.id.Player_Score_value);
-
         /*
          * State 0 - New game
          *      to do:  - enable both cpu buttons
@@ -166,11 +138,9 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
          *              - set player score to default '-'
          */
         int ui_state = 0;
-// Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-        String toastMsg = "select to roll CPU dice";
 
         // determine state of activity
-        if (cpu_d1_value > 0 && cpu_d2_value > 0) {
+        if (GAME.getCpuPlayer().getDice1() > 0 && GAME.getCpuPlayer().getDice2() > 0) {
             /*
              * State 1 - CPU dice values determined
              *      to do:  - disable both cpu buttons
@@ -181,10 +151,8 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              *              - set player score to default '-'
              */
             ui_state = 1;
-// Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-            toastMsg = "choose your 1st dice";
         }
-        if (player_d1_value > 0) {
+        if (GAME.getHumanPlayer().getDice1() > 0) {
             /*
              * State 2 - Player dice 1 value determined
              *      to do:  - disable both cpu buttons
@@ -196,10 +164,8 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              *              - set player score to default '-'
              */
             ui_state = 2;
-// Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-            toastMsg = "roll your 2nd dice";
         }
-        if (player_d2_value > 0) {
+        if (GAME.getHumanPlayer().getDice2() > 0) {
             /*
              * State 3 - Player dice 2 value determined
              *      to do:  - disable both cpu buttons
@@ -210,16 +176,14 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              *              - set player score to player score
              */
             ui_state = 3;
-            if (player_score_value<cpu_score_value) {
-// Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-                toastMsg = "You Lose...";
-            }else if (player_score_value>cpu_score_value){
-// Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-                toastMsg = "You Win!!";
-            }else{
-// Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-                toastMsg = "-No Winner-";
+            if (GAME.getHumanPlayer().getScore() < GAME.getCpuPlayer().getScore()) {
+                WINNER_UI.setText(GAME.getCpuPlayer().getName() + " Wins!");
+            } else if (GAME.getHumanPlayer().getScore() > GAME.getCpuPlayer().getScore()) {
+                WINNER_UI.setText(GAME.getHumanPlayer().getName() + " Wins!");
+            } else {
+                WINNER_UI.setText("It's a tie!");
             }
+            PLAY_AGAIN_BUTTON.setVisibility(View.VISIBLE);
         }
         /* STATE TRANSITION BASED ON COMPONENT  4 unique sets of components
          *      UI COMPONENT(s)              0       1       2       3
@@ -233,51 +197,48 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
         // update the ui components according to state
         // cpu ui components SET A
         if (ui_state < 1) {
-            cpu_d1_ui.setEnabled(true);
-            cpu_d1_ui.setText("-");
-            cpu_d2_ui.setEnabled(true);
-            cpu_d2_ui.setText("-");
-            cpu_score_ui.setText("-");
+            CPU_D1_UI.setEnabled(true);
+            CPU_D1_UI.setText("-");
+            CPU_D2_UI.setEnabled(true);
+            CPU_D2_UI.setText("-");
+            CPU_SCORE_UI.setText("-");
         } else {
-            cpu_d1_ui.setEnabled(false);
-            cpu_d1_ui.setText(Integer.toString(cpu_d1_value));
-            cpu_d2_ui.setEnabled(false);
-            cpu_d2_ui.setText(Integer.toString(cpu_d2_value));
-            cpu_score_ui.setText(Integer.toString(cpu_score_value));
+            CPU_D1_UI.setEnabled(false);
+            CPU_D1_UI.setText(Integer.toString(GAME.getCpuPlayer().getDice1()));
+            CPU_D2_UI.setEnabled(false);
+            CPU_D2_UI.setText(Integer.toString(GAME.getCpuPlayer().getDice2()));
+            CPU_SCORE_UI.setText(Integer.toString(GAME.getCpuPlayer().getScore()));
         }
 
         // player spinner/button enabled properties SET B
         if (ui_state < 1 || ui_state > 2) {
-            player_d1_ui.setEnabled(false);
+            PLAYER_D1_UI.setEnabled(false);
         } else {
-            player_d1_ui.setEnabled(true);
+            PLAYER_D1_UI.setEnabled(true);
         }
 
         // player spinner/button enabled properties SET C
         if (ui_state < 2 || ui_state > 2) {
-            player_d2_ui.setEnabled(false);
+            PLAYER_D2_UI.setEnabled(false);
         } else {
-            player_d2_ui.setEnabled(true);
+            PLAYER_D2_UI.setEnabled(true);
         }
 
         // player d1 button text value SET D
         if (ui_state < 2) {
-            player_d1_ui.setSelection(0); // refers to "-"
+            PLAYER_D1_UI.setSelection(0); // refers to "-"
         } else {
-            player_d1_ui.setSelection(player_d1_value); // add offset of default option
+            PLAYER_D1_UI.setSelection(GAME.getHumanPlayer().getDice1()); // add offset of default option
         }
 
         // cpu ui components SET E
         if (ui_state < 3) {
-            player_d2_ui.setText("-");
-            player_score_ui.setText("-");
+            PLAYER_D2_UI.setText("-");
+            PLAYER_SCORE_UI.setText("-");
         } else {
-            player_d2_ui.setText(Integer.toString(player_d2_value));
-            player_score_ui.setText(Integer.toString(player_score_value));
+            PLAYER_D2_UI.setText(Integer.toString(GAME.getHumanPlayer().getDice2()));
+            PLAYER_SCORE_UI.setText(Integer.toString(GAME.getHumanPlayer().getScore()));
         }
-        // Temporary toast for acknowledgment - Remove once sequence is finished
-        Toast.makeText(getBaseContext(),toastMsg,Toast.LENGTH_LONG).show();
 
     }
-
 }
