@@ -1,7 +1,10 @@
 package edu.fullerton.csu.team06.hw1_dicegame;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
@@ -55,7 +58,21 @@ public class HelpActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.play_button_from_help: {
+                // Intent for the activity to open when user selects the play button
+                Intent back2home = new Intent(this,HomeActivity.class);
                 Intent playIntent = new Intent(this, GameplayActivity.class);
+
+                // Use TaskStackBuilder to build the back stack and get the PendingIntent
+                PendingIntent pendingIntent =
+                        TaskStackBuilder.create(this)
+                                // add all of GameplayActivity's parents to the stack,
+                                // followed by DetailsActivity itself
+                                .addNextIntentWithParentStack(back2home)
+                                .addNextIntentWithParentStack(playIntent)
+                                .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+                builder.setContentIntent(pendingIntent);
                 startActivity(playIntent);
                 break;
             }

@@ -65,6 +65,10 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
         Button player_d1 = findViewById(R.id.PLYR_D2);
         player_d1.setOnClickListener(this);
 
+        // setup the play again button callback;
+        Button playAgain = findViewById(R.id.playAgain);
+        playAgain.setOnClickListener(this);
+
         /*
         * After creation is done, update function should be called  to ensure proper ui components
          * are enabled/disabled and proper values are restored, especially if returning to previous
@@ -129,6 +133,18 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
                     this.plr2 = r.nextInt(6)+1;
                 // END simulated code
                 break;
+            case R.id.playAgain:
+                /** Called when the player taps the play again button */
+
+                /*
+                 * Place function call to reinitialize the cpu and player dice values
+                 */
+
+                //simulated version only
+                cpu1 = -1;
+                cpu2 = -1;
+                plr1 = -1;
+                plr2 = -1;
         }
         // perform update to ui components for this activity
         updateUI();
@@ -155,6 +171,7 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
         Spinner player_d1_ui = findViewById(R.id.PLYR_D1);
         Button player_d2_ui = findViewById(R.id.PLYR_D2);
         TextView player_score_ui = findViewById(R.id.Player_Score_value);
+        Button playAgain_ui = findViewById(R.id.playAgain);
 
         /*
          * State 0 - New game
@@ -164,6 +181,7 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
          *              - disable player spinner and player button
          *              - set text of player ui components to default '-'
          *              - set player score to default '-'
+         *              - play again button to invisible
          */
         int ui_state = 0;
 // Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
@@ -179,6 +197,7 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              *              - enable player spinner and player button
              *              - set text of player ui components to default '-'
              *              - set player score to default '-'
+             *              - play again button to invisible
              */
             ui_state = 1;
 // Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
@@ -194,6 +213,7 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              *              - set text of spinner to that of player dice 1 value
              *              - set text of player dice 2 button to default '-'
              *              - set player score to default '-'
+             *              - play again button to invisible
              */
             ui_state = 2;
 // Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
@@ -208,6 +228,7 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              *              - disable player spinner and player button
              *              - set text of player ui components to that of player dice values
              *              - set player score to player score
+             *              - play again button visible
              */
             ui_state = 3;
             if (player_score_value<cpu_score_value) {
@@ -222,12 +243,12 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
             }
         }
         /* STATE TRANSITION BASED ON COMPONENT  4 unique sets of components
-         *      UI COMPONENT(s)              0       1       2       3
-         *  (A)   cpu default               true   false   false   false  (includes enabled buttons and '-' for button/score
-         *  (B) player d1 disabled          true   false   false    true
-         *  (C) player d2 disabled          true    true   false    true
-         *  (D) player d1 default           true    true   false   false
-         *  (E) player score/d2 default     true    true    true   false
+         *      UI COMPONENT(s)                                  0       1       2       3
+         *  (A)   cpu default                                   true   false   false   false  (includes enabled buttons and '-' for button/score
+         *  (B) player d1 disabled                              true   false   false    true
+         *  (C) player d2 disabled                              true    true   false    true
+         *  (D) player d1 default                               true    true   false   false
+         *  (E) player score/d2 default/playAgain visible       true    true    true   false
          */
 
         // update the ui components according to state
@@ -271,9 +292,11 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
         if (ui_state < 3) {
             player_d2_ui.setText("-");
             player_score_ui.setText("-");
+            playAgain_ui.setVisibility(View.INVISIBLE);
         } else {
             player_d2_ui.setText(Integer.toString(player_d2_value));
             player_score_ui.setText(Integer.toString(player_score_value));
+            playAgain_ui.setVisibility(View.VISIBLE);
         }
         // Temporary toast for acknowledgment - Remove once sequence is finished
         Toast.makeText(getBaseContext(),toastMsg,Toast.LENGTH_LONG).show();

@@ -22,7 +22,9 @@
                 android:value="edu.fullerton.csu.team06.hw1_dicegame.HomeActivity" />
         </activity>
         <activity android:name=".HelpActivity"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".HomeActivity"
+            android:noHistory="true"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.fullerton.csu.team06.hw1_dicegame.HomeActivity" />
