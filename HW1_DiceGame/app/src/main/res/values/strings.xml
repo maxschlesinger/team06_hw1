@@ -7,6 +7,7 @@
     <string name="player_d2">-</string>
     <string name="cpu_d1">-</string>
     <string name="cpu_d2">-</string>
+    <string name="score_placeholder">--</string>
     <string name="back">Back</string>
     <string-array name= "dice_values">
         <item>-</item>

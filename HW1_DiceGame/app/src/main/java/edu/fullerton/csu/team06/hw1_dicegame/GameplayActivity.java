@@ -1,5 +1,6 @@
 package edu.fullerton.csu.team06.hw1_dicegame;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class GameplayActivity extends AppCompatActivity implements OnClickListener {
     ArrayAdapter<CharSequence> adapter;
@@ -23,6 +23,10 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
     Spinner PLAYER_D1_UI;
     Button PLAYER_D2_UI;
     TextView PLAYER_SCORE_UI;
+    TextView WINNER_UI;
+    TextView PLAYER_SCORE_LABEL;
+    TextView CPU_SCORE_LABEL;
+    Button PLAY_AGAIN_BUTTON;
 
     // End simulated player object properties
 
@@ -52,8 +56,20 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
         PLAYER_D2_UI.setOnClickListener(this);
 
         // get the TextViews for score
+        CPU_SCORE_LABEL = findViewById(R.id.CPU_Score_lbl);
+        PLAYER_SCORE_LABEL = findViewById(R.id.player_score_label);
+        CPU_SCORE_LABEL.setText(GAME.getCpuPlayer().getName() + " Score: ");
+        PLAYER_SCORE_LABEL.setText(GAME.getHumanPlayer().getName() + " Score: ");
         CPU_SCORE_UI = findViewById(R.id.CPU_Score_value);
         PLAYER_SCORE_UI = findViewById(R.id.Player_Score_value);
+
+        // get Play Again Button
+        PLAY_AGAIN_BUTTON = findViewById(R.id.play_again_button);
+        PLAY_AGAIN_BUTTON.setOnClickListener(this);
+        PLAY_AGAIN_BUTTON.setVisibility(View.INVISIBLE);
+
+        // get winner TextViews
+        WINNER_UI = findViewById(R.id.winner_textview);
 
         // setup the player spinner dice for choosing value
         PLAYER_D1_UI.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -83,19 +99,28 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
                 break;
             case R.id.PLYR_D1:
                 /** Called when the player selects a value for the first player dice */
-                    PLAYER_D1_UI = findViewById(R.id.PLYR_D1);
-                    String uiValue_Str =  PLAYER_D1_UI.getSelectedItem().toString();
-                    try {
-                        GAME.getHumanPlayer().setDice1(Integer.parseInt(uiValue_Str));
-                    } catch (NumberFormatException e) {
-                        // handle the scenario that user selects "-"
-                        // set value to -1
-                        GAME.getHumanPlayer().setDice1(-1);
-                    }
+                PLAYER_D1_UI = findViewById(R.id.PLYR_D1);
+                String uiValue_Str =  PLAYER_D1_UI.getSelectedItem().toString();
+                try {
+                    GAME.getHumanPlayer().setDice1(Integer.parseInt(uiValue_Str));
+                } catch (NumberFormatException e) {
+                    // handle the scenario that user selects "-"
+                    // set value to -1
+                    GAME.getHumanPlayer().setDice1(-1);
+                }
                 break;
             case R.id.PLYR_D2:
                 /** Called when the player taps the second player dice */
-                    GAME.getHumanPlayer().rollDice();
+                GAME.getHumanPlayer().rollDice();
+                break;
+            case R.id.play_again_button:
+                Intent returnIntent = new Intent();
+                // 1 means play again
+                returnIntent.putExtra("result", 1);
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+                break;
+            default:
                 break;
         }
         // perform update to ui components for this activity
@@ -113,8 +138,6 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
          *              - set player score to default '-'
          */
         int ui_state = 0;
-        // Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-        String toastMsg = "select to roll CPU dice";
 
         // determine state of activity
         if (GAME.getCpuPlayer().getDice1() > 0 && GAME.getCpuPlayer().getDice2() > 0) {
@@ -128,8 +151,6 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              *              - set player score to default '-'
              */
             ui_state = 1;
-            // Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-            toastMsg = "choose your 1st dice";
         }
         if (GAME.getHumanPlayer().getDice1() > 0) {
             /*
@@ -143,8 +164,6 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              *              - set player score to default '-'
              */
             ui_state = 2;
-            // Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-            toastMsg = "roll your 2nd dice";
         }
         if (GAME.getHumanPlayer().getDice2() > 0) {
             /*
@@ -158,15 +177,13 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              */
             ui_state = 3;
             if (GAME.getHumanPlayer().getScore() < GAME.getCpuPlayer().getScore()) {
-                // Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-                toastMsg = "You Lose...";
+                WINNER_UI.setText(GAME.getCpuPlayer().getName() + " Wins!");
             } else if (GAME.getHumanPlayer().getScore() > GAME.getCpuPlayer().getScore()) {
-                // Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-                toastMsg = "You Win!!";
+                WINNER_UI.setText(GAME.getHumanPlayer().getName() + " Wins!");
             } else {
-                // Toast messages are for troubleshooting purposes only.  Intention is to remove once validated
-                toastMsg = "-No Winner-";
+                WINNER_UI.setText("It's a tie!");
             }
+            PLAY_AGAIN_BUTTON.setVisibility(View.VISIBLE);
         }
         /* STATE TRANSITION BASED ON COMPONENT  4 unique sets of components
          *      UI COMPONENT(s)              0       1       2       3
@@ -222,9 +239,6 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
             PLAYER_D2_UI.setText(Integer.toString(GAME.getHumanPlayer().getDice2()));
             PLAYER_SCORE_UI.setText(Integer.toString(GAME.getHumanPlayer().getScore()));
         }
-        // Temporary toast for acknowledgment - Remove once sequence is finished
-        Toast.makeText(getBaseContext(),toastMsg,Toast.LENGTH_LONG).show();
 
     }
-
 }

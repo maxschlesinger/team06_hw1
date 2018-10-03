@@ -1,6 +1,8 @@
 package edu.fullerton.csu.team06.hw1_dicegame;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,12 +32,12 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener {
                 Intent intent = new Intent(this, GameplayActivity.class);
                 Game newGame = new Game();
                 intent.putExtra("gameObject", newGame);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 break;
             }
             case R.id.helpButton: {
                 Intent intent = new Intent(this, HelpActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 break;
             }
             case R.id.aboutButton: {
@@ -44,6 +46,22 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener {
             }
             default: {
                 break;
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                Integer result = data.getIntExtra("result", 0);
+                if (result == 1) {
+                    // Restart game/Play Again
+                    Intent intent = new Intent(this, GameplayActivity.class);
+                    Game newGame = new Game();
+                    intent.putExtra("gameObject", newGame);
+                    startActivityForResult(intent, 1);
+                }
             }
         }
     }

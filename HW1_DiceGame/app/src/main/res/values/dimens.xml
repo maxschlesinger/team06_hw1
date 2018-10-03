@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="layout_win_margin">64dp</dimen>
+    <dimen name="layout_win_margin_bottom">32dp</dimen>
+    <dimen name="layout_button_size">64dp</dimen>
+    <dimen name="layout_content_margin">48dp</dimen>
+    <dimen name="layout_button_margin">24dp</dimen>
+    <dimen name="score_margin_top">24dp</dimen>
+    <dimen name="score_margin_left">12dp</dimen>
+    <dimen name="play_again_margin_top">32dp</dimen>
+    <dimen name="winner_text_size">36sp</dimen>
+    <dimen name="dice_text_size">18sp</dimen>
+</resources>
