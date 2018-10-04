@@ -10,4 +10,14 @@
     <dimen name="play_again_margin_top">32dp</dimen>
     <dimen name="winner_text_size">36sp</dimen>
     <dimen name="dice_text_size">18sp</dimen>
+    <dimen name="about_buttons_padding">42.5dp</dimen>
+    <dimen name="about_buttons_margin">12px</dimen>
+    <dimen name="about_text_size">32sp</dimen>
+    <dimen name="help_margin">12px</dimen>
+    <dimen name="help_padding">42.5dp</dimen>
+    <dimen name="help_title_size">32sp</dimen>
+    <dimen name="home_margin">12px</dimen>
+    <dimen name="home_about_button_padding">42.5dp</dimen>
+    <dimen name="home_button_padding">48dp</dimen>
+    <dimen name="home_title_size">32sp</dimen>
 </resources>
