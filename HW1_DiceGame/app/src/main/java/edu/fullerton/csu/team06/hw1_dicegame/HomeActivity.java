@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements OnClickListener {
             }
             case R.id.aboutButton: {
                 Intent intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 break;
             }
             default: {

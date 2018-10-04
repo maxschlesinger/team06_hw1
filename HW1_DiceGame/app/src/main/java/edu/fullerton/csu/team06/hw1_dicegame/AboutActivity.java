@@ -3,15 +3,9 @@ package edu.fullerton.csu.team06.hw1_dicegame;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener{
-
-
-
 
 
     @Override
@@ -31,7 +25,11 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.play_button_from_about: {
                 Intent playIntent = new Intent(this, GameplayActivity.class);
+                playIntent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                Game newGame = new Game();
+                playIntent.putExtra("gameObject", newGame);
                 startActivity(playIntent);
+                finish();
                 break;
             }
             case R.id.back_button: {

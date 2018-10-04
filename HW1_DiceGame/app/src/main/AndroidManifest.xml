@@ -31,7 +31,7 @@
             android:parentActivityName=".AboutActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.fullerton.csu.team06.hw1_dicegame.AboutActivity" />
+                android:value="edu.fullerton.csu.team06.hw1_dicegame.HomeActivity" />
         </activity>
 
     </application>
