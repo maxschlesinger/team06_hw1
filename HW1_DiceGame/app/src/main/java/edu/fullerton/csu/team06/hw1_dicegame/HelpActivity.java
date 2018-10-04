@@ -56,7 +56,11 @@ public class HelpActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.play_button_from_help: {
                 Intent playIntent = new Intent(this, GameplayActivity.class);
+                playIntent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+                Game newGame = new Game();
+                playIntent.putExtra("gameObject", newGame);
                 startActivity(playIntent);
+                finish();
                 break;
             }
             case R.id.back_button: {
@@ -67,6 +71,5 @@ public class HelpActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
         }
-
     }
 }
