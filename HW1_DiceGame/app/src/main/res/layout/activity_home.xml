@@ -15,12 +15,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.25"
+            android:background="@android:color/darker_gray"
             android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:background="@android:color/darker_gray"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/home_title_size"
                 android:text="@string/title"/>
 
@@ -32,6 +35,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight=".75"
+            android:background="@android:color/darker_gray"
             android:orientation="vertical">
 
             <Button
@@ -41,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@android:color/background_light"
                 android:text="@string/play" />
 
             <Button
@@ -50,6 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@android:color/background_light"
                 android:text="@string/help" />
 
             <Button
@@ -59,6 +65,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/home_margin"
                 android:paddingHorizontal="@dimen/home_about_button_padding"
+                android:background="@android:color/background_light"
                 android:text="@string/about" />
 
         </LinearLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="@android:color/darker_gray"
     tools:context=".GameplayActivity"
     android:weightSum="1"
     android:orientation="vertical"
@@ -151,6 +151,7 @@
         android:layout_height="wrap_content"
         android:text="Play Again?"
         android:layout_centerInParent="true"
+        android:background="@android:color/background_light"
         android:gravity="center"/>
 
     </RelativeLayout>
