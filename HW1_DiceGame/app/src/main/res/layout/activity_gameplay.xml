@@ -5,26 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
-    android:gravity="center"
-    android:orientation="vertical"
+    tools:context=".GameplayActivity"
     android:weightSum="1"
-    tools:context=".GameplayActivity">
+    android:orientation="vertical"
+    android:gravity="center">
 
     <RelativeLayout
         android:id="@+id/win_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/layout_win_margin_bottom"
         android:layout_marginHorizontal="@dimen/layout_win_margin"
-        android:layout_weight=".1">
+        android:layout_weight=".1"
+        android:layout_marginBottom="@dimen/layout_win_margin_bottom">
 
         <TextView
             android:id="@+id/winner_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/winner_text_size"
             android:layout_centerInParent="true"
-            android:gravity="center"
-            android:textSize="@dimen/winner_text_size" />
+            android:gravity="center" />
 
     </RelativeLayout>
 
@@ -33,53 +33,53 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/layout_content_margin"
-        android:layout_weight=".3"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight=".3">
 
         <Button
             android:id="@+id/CPU_D1"
             android:layout_width="@dimen/layout_button_size"
             android:layout_height="@dimen/layout_button_size"
-            android:layout_alignParentLeft="true"
-            android:layout_marginHorizontal="@dimen/layout_button_margin"
-            android:layout_weight=".5"
             android:background="@android:color/background_light"
             android:enabled="true"
-            android:text="@string/cpu_d1" />
+            android:text="@string/cpu_d1"
+            android:layout_weight=".5"
+            android:layout_alignParentLeft="true"
+            android:layout_marginHorizontal="@dimen/layout_button_margin" />
 
         <Button
             android:id="@+id/CPU_D2"
             android:layout_width="@dimen/layout_button_size"
             android:layout_height="@dimen/layout_button_size"
-            android:layout_alignParentRight="true"
-            android:layout_marginHorizontal="@dimen/layout_button_margin"
             android:layout_weight=".5"
             android:background="@android:color/background_light"
             android:enabled="true"
-            android:text="@string/cpu_d2" />
+            android:text="@string/cpu_d2"
+            android:layout_alignParentRight="true"
+            android:layout_marginHorizontal="@dimen/layout_button_margin" />
 
         <TextView
             android:id="@+id/CPU_Score_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/CPU_D1"
-            android:layout_marginTop="@dimen/score_margin_top"
-            android:layout_toLeftOf="@id/CPU_Score_value"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="@dimen/dice_text_size" />
+            android:textSize="@dimen/dice_text_size"
+            android:layout_below="@id/CPU_D1"
+            android:layout_toLeftOf="@id/CPU_Score_value"
+            android:layout_marginTop="@dimen/score_margin_top" />
 
         <TextView
             android:id="@+id/CPU_Score_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="--"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="@dimen/dice_text_size"
             android:layout_alignParentBottom="true"
             android:layout_below="@id/CPU_D1"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/score_margin_left"
             android:layout_marginTop="@dimen/score_margin_top"
-            android:text="--"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="@dimen/dice_text_size" />
+            android:layout_marginLeft="@dimen/score_margin_left" />
 
     </RelativeLayout>
 
@@ -88,52 +88,52 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/layout_content_margin"
-        android:layout_weight=".3"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight=".3">
 
         <Spinner
             android:id="@+id/PLYR_D1"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/background_light"
             android:layout_width="@dimen/layout_button_size"
             android:layout_height="@dimen/layout_button_size"
-            android:layout_alignParentLeft="true"
-            android:layout_marginHorizontal="@dimen/layout_button_margin"
             android:layout_weight=".5"
-            android:background="@android:color/background_light"
+            android:layout_marginHorizontal="@dimen/layout_button_margin"
             android:textAlignment="center" />
 
         <Button
             android:id="@+id/PLYR_D2"
             android:layout_width="@dimen/layout_button_size"
             android:layout_height="@dimen/layout_button_size"
-            android:layout_alignParentRight="true"
-            android:layout_marginHorizontal="@dimen/layout_button_margin"
             android:layout_weight=".5"
             android:background="@android:color/background_light"
             android:enabled="true"
-            android:text="@string/player_d2" />
+            android:text="@string/player_d2"
+            android:layout_alignParentRight="true"
+            android:layout_marginHorizontal="@dimen/layout_button_margin" />
 
         <TextView
             android:id="@+id/player_score_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/PLYR_D1"
-            android:layout_marginTop="@dimen/score_margin_top"
-            android:layout_toLeftOf="@id/Player_Score_value"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="@dimen/dice_text_size" />
+            android:textSize="@dimen/dice_text_size"
+            android:layout_below="@id/PLYR_D1"
+            android:layout_toLeftOf="@id/Player_Score_value"
+            android:layout_marginTop="@dimen/score_margin_top" />
 
         <TextView
             android:id="@+id/Player_Score_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/score_placeholder"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="@dimen/dice_text_size"
             android:layout_alignParentBottom="true"
             android:layout_below="@id/PLYR_D1"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/score_margin_left"
             android:layout_marginTop="@dimen/score_margin_top"
-            android:text="@string/score_placeholder"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="@dimen/dice_text_size" />
+            android:layout_marginLeft="@dimen/score_margin_left" />
 
     </RelativeLayout>
 
@@ -142,17 +142,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/layout_content_margin"
-        android:layout_marginTop="@dimen/play_again_margin_top"
-        android:layout_weight=".1">
+        android:layout_weight=".1"
+        android:layout_marginTop="@dimen/play_again_margin_top">
 
         <Button
             android:id="@+id/play_again_button"
-            android:layout_width="110dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Play Again?"
             android:layout_centerInParent="true"
             android:background="@android:color/background_light"
-            android:gravity="center"
-            android:text="Play Again?" />
+            android:gravity="center" />
 
     </RelativeLayout>
 
