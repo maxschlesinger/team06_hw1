@@ -19,4 +19,10 @@
         <item>6</item>
     </string-array>
     <string name="title">American Roulette</string>
+    <string name="team">Team 06
+        \n\n Aaron Thrasher
+        \n Marshall Gendron
+        \n Max Schlesinger
+        \n Mugendi Gitonga
+        </string>
 </resources>
