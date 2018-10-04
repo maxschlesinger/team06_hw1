@@ -133,7 +133,7 @@
             android:layout_below="@id/PLYR_D1"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/score_margin_top"
-            android:layout_marginLeft="@dimen/score_margin_left" />
+            android:layout_marginLeft="@dimen/score_margin_left"/>
 
     </RelativeLayout>
 
