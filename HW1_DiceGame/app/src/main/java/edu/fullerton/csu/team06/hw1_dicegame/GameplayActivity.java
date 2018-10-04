@@ -176,12 +176,11 @@ public class GameplayActivity extends AppCompatActivity implements OnClickListen
              *              - set player score to player score
              */
             ui_state = 3;
-            if (GAME.getHumanPlayer().getScore() < GAME.getCpuPlayer().getScore()) {
-                WINNER_UI.setText(GAME.getCpuPlayer().getName() + " Wins!");
-            } else if (GAME.getHumanPlayer().getScore() > GAME.getCpuPlayer().getScore()) {
-                WINNER_UI.setText(GAME.getHumanPlayer().getName() + " Wins!");
-            } else {
+            Player winningPlayer = GAME.getWinner();
+            if (winningPlayer == null) {
                 WINNER_UI.setText("It's a tie!");
+            } else {
+                WINNER_UI.setText(winningPlayer.getName() + " Wins!");
             }
             PLAY_AGAIN_BUTTON.setVisibility(View.VISIBLE);
         }
